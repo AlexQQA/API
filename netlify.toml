@@ -1,14 +1,6 @@
 [build]
-  functions = "netlify/functions"
+  functions = "netlify/functions"  # Путь к папке с функциями
+  publish = "public"               # Путь к папке со статическими файлами (если есть)
 
-[functions]
-  node_bundler = "esbuild"
-  external_node_modules = ["mongoose"]
-
-[functions.getUsers]
-  timeout = 30
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+[dev]
+  port = 8888                      # Порт, на котором будет запущен локальный сервер
