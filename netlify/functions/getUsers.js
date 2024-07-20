@@ -1,20 +1,24 @@
 const mongoose = require('mongoose');
-const User = require('../../models/userModel');
+const User = require('./models/User'); // Убедитесь, что путь к модели верный
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/dummyapi', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+// Подключение к MongoDB без устаревших параметров
+mongoose.connect('your-mongodb-uri', {
+  // Устаревшие параметры убраны
 });
 
+// Экспорт функции
 exports.handler = async function(event, context) {
-  if (event.httpMethod !== 'GET') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
-
   try {
-    const users = await User.find({});
-    return { statusCode: 200, body: JSON.stringify(users) };
+    const users = await User.find();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(users),
+    };
   } catch (error) {
-    return { statusCode: 500, body: JSON.stringify({ error: 'Error fetching users' }) };
+    console.error('Error fetching users:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Error fetching users' }),
+    };
   }
 };

@@ -1,6 +1,14 @@
 [build]
   functions = "netlify/functions"
-  publish = "public"
 
-[dev]
-  port = 8888
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["mongoose"]
+
+[functions.getUsers]
+  timeout = 30
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

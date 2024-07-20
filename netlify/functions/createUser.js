@@ -1,23 +1,24 @@
 const mongoose = require('mongoose');
-const User = require('../../models/userModel');
+const User = require('./models/User'); // Убедитесь, что путь к модели корректный
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/dummyapi', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect('your-mongodb-uri'); // Удалили устаревшие параметры
 
-exports.handler = async function(event, context) {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
+exports.handler = async (event) => {
+    try {
+        const { name, email, age } = JSON.parse(event.body);
 
-  const { name, email, age } = JSON.parse(event.body);
-  const newUser = new User({ name, email, age });
+        const user = new User({ name, email, age });
+        await user.save();
 
-  try {
-    const savedUser = await newUser.save();
-    return { statusCode: 200, body: JSON.stringify(savedUser) };
-  } catch (error) {
-    return { statusCode: 500, body: JSON.stringify({ error: 'Error creating user' }) };
-  }
+        return {
+            statusCode: 201,
+            body: JSON.stringify(user),
+        };
+    } catch (error) {
+        console.error('Error creating user:', error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Error creating user' }),
+        };
+    }
 };
