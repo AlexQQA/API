@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  color: #fff;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+button {
+  background: #4a00e0;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #8e2de2;
+}
+
+form {
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  margin: 5px 0;
+}
+
+input {
+  margin: 5px 0;
+  padding: 5px;
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 5px 0;
+}
