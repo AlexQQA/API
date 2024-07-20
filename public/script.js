@@ -32,7 +32,7 @@ document.getElementById('createUserForm').addEventListener('submit', async (even
     const age = document.getElementById('age').value;
 
     try {
-        const response = await fetch('/api/users', {
+        const response = await fetch('/.netlify/functions/createUser', { // Путь к функции Netlify
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,9 +45,11 @@ document.getElementById('createUserForm').addEventListener('submit', async (even
             fetchUsers(); // Обновить список пользователей
         } else {
             console.error('Error creating user:', response.statusText);
+            alert('Error creating user. Please try again.');
         }
     } catch (error) {
         console.error('Error creating user:', error);
+        alert('Error creating user. Please try again.');
     }
 });
 
@@ -57,7 +59,7 @@ function showApiDocs() {
     docsContainer.innerHTML = `
         <h2>API Documentation</h2>
         <h3>1. Create User</h3>
-        <pre>POST /api/users
+        <pre>POST /api/createUser
         Request Body:
         {
             "name": "string",
@@ -69,7 +71,7 @@ function showApiDocs() {
         </pre>
 
         <h3>2. Get All Users</h3>
-        <pre>GET /api/users
+        <pre>GET /api/getUsers
         Response:
         [
             {
@@ -82,7 +84,7 @@ function showApiDocs() {
         </pre>
 
         <h3>3. Get User by ID</h3>
-        <pre>GET /api/users/{id}
+        <pre>GET /api/getUsers/{id}
         Response:
         {
             "id": "string",
@@ -115,7 +117,7 @@ function showApiDocs() {
 // Функция для получения списка пользователей
 async function fetchUsers() {
     try {
-        const response = await fetch('/api/users');
+        const response = await fetch('/.netlify/functions/getUsers'); // Путь к функции Netlify
         if (response.ok) {
             const users = await response.json();
             const userList = document.getElementById('userList');
@@ -127,8 +129,10 @@ async function fetchUsers() {
             });
         } else {
             console.error('Error fetching users:', response.statusText);
+            alert('Error fetching users. Please try again.');
         }
     } catch (error) {
         console.error('Error fetching users:', error);
+        alert('Error fetching users. Please try again.');
     }
 }
