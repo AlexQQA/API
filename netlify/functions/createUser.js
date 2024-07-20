@@ -1,24 +1,23 @@
 const mongoose = require('mongoose');
-const User = require('./models/User'); // Убедитесь, что путь к модели корректный
+const User = require('../../models/usermodel'); // Обратите внимание на путь
 
-mongoose.connect('your-mongodb-uri'); // Удалили устаревшие параметры
+// Подключение к MongoDB без устаревших параметров
+mongoose.connect(process.env.MONGODB_URI, {});
 
-exports.handler = async (event) => {
-    try {
-        const { name, email, age } = JSON.parse(event.body);
-
-        const user = new User({ name, email, age });
-        await user.save();
-
-        return {
-            statusCode: 201,
-            body: JSON.stringify(user),
-        };
-    } catch (error) {
-        console.error('Error creating user:', error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: 'Error creating user' }),
-        };
-    }
+exports.handler = async function(event, context) {
+  try {
+    const { name, email, age } = JSON.parse(event.body);
+    const newUser = new User({ name, email, age });
+    await newUser.save();
+    return {
+      statusCode: 201,
+      body: JSON.stringify(newUser),
+    };
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Error creating user' }),
+    };
+  }
 };

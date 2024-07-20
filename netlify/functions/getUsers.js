@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
-const User = require('./models/User'); // Убедитесь, что путь к модели верный
+const User = require('../../models/usermodel'); // Обратите внимание на путь
 
 // Подключение к MongoDB без устаревших параметров
-mongoose.connect('your-mongodb-uri', {
-  // Устаревшие параметры убраны
-});
+mongoose.connect(process.env.MONGODB_URI, {});
 
-// Экспорт функции
 exports.handler = async function(event, context) {
   try {
     const users = await User.find();
