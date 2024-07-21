@@ -1,6 +1,8 @@
 [build]
-  functions = "netlify/functions"  # Путь к папке с функциями
-  publish = "public"               # Путь к папке со статическими файлами (если есть)
+  publish = "public"
+  functions = "netlify/functions"
 
-[dev]
-  port = 8888                      # Порт, на котором будет запущен локальный сервер
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
