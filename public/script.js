@@ -1,4 +1,7 @@
-// Обработчик кнопок
+document.getElementById('signInBtn').addEventListener('click', () => {
+    window.location.href = 'sign-in.html';
+});
+
 document.getElementById('generateKeyBtn').addEventListener('click', () => {
     alert('Key generation functionality will be implemented here.');
 });
@@ -7,7 +10,7 @@ document.getElementById('documentationBtn').addEventListener('click', () => {
     document.getElementById('documentationSection').style.display = 'block';
     document.getElementById('userListSection').style.display = 'none';
     document.getElementById('createUserSection').style.display = 'none';
-    showApiDocs(); // Показать документацию API
+    showApiDocs();
 });
 
 document.getElementById('createUserBtn').addEventListener('click', () => {
@@ -20,32 +23,22 @@ document.getElementById('showUsersBtn').addEventListener('click', () => {
     document.getElementById('createUserSection').style.display = 'none';
     document.getElementById('userListSection').style.display = 'block';
     document.getElementById('documentationSection').style.display = 'none';
-    fetchUsers(); // Обновить список пользователей
+    fetchUsers();
 });
 
-// Обработчик формы создания пользователя
-document.getElementById('createUserForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
-
+document.getElementById('createUserForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const age = document.getElementById('age').value;
-
     const userData = { name, email, age };
-
     const result = await createUser(userData);
-    if (result) {
-        alert('User created successfully');
-        fetchUsers(); // Обновить список пользователей после создания нового
-    } else {
-        alert('Failed to create user');
-    }
+    alert(result.message || 'User created successfully');
 });
 
-// Функция для создания пользователя
 async function createUser(userData) {
     try {
-        const response = await fetch('https://alexqa.netlify.app/api/createUser', {
+        const response = await fetch('/.netlify/functions/createUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,30 +52,22 @@ async function createUser(userData) {
     }
 }
 
-// Функция для получения и отображения списка пользователей
 async function fetchUsers() {
     try {
-        const response = await fetch('https://alexqa.netlify.app/api/getUsers');
+        const response = await fetch('/.netlify/functions/getUsers');
         const users = await response.json();
-
-        if (Array.isArray(users)) {
-            const userList = document.getElementById('userList');
-            userList.innerHTML = ''; // Очистить текущий список
-
-            users.forEach(user => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${user.name} (${user.email}, ${user.age} years old)`;
-                userList.appendChild(listItem);
-            });
-        } else {
-            throw new Error('Expected an array of users');
-        }
+        const userList = document.getElementById('userList');
+        userList.innerHTML = '';
+        users.forEach(user => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${user.name} (${user.email}) - Age: ${user.age}`;
+            userList.appendChild(listItem);
+        });
     } catch (error) {
         console.error('Error fetching users:', error);
     }
 }
 
-// Функция для получения и отображения документации API
 function showApiDocs() {
     const docsContainer = document.getElementById('apiDocs');
     docsContainer.innerHTML = `
