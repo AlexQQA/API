@@ -1,24 +1,26 @@
-const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
 
-const uri = process.env.MONGODB_URI;
+exports.handler = async function(event, context) {
+  const uri = process.env.MONGODB_URI;
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Error connecting to MongoDB', err));
-
-exports.handler = async (event) => {
-  console.log('getUsers function called');
   try {
-    // Ваш код для получения пользователей из MongoDB
+    await client.connect();
+    const collection = client.db(process.env.MONGODB_DATABASE).collection(process.env.MONGODB_COLLECTION);
+    const users = await collection.find().toArray();
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Users fetched successfully' }),
+      body: JSON.stringify(users)
     };
   } catch (error) {
-    console.error('Error in getUsers function', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
+      body: JSON.stringify({ message: error.message })
     };
+  } finally {
+    await client.close();
   }
 };
+console.log('Fetched users:', users);
+

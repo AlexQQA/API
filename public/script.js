@@ -117,22 +117,18 @@ function showApiDocs() {
 // Функция для получения списка пользователей
 async function fetchUsers() {
     try {
-        const response = await fetch('/.netlify/functions/getUsers'); // Путь к функции Netlify
-        if (response.ok) {
-            const users = await response.json();
-            const userList = document.getElementById('userList');
-            userList.innerHTML = '';
-            users.forEach(user => {
-                const li = document.createElement('li');
-                li.textContent = `${user.name} (${user.email}, ${user.age} years old)`;
-                userList.appendChild(li);
-            });
-        } else {
-            console.error('Error fetching users:', response.statusText);
-            alert('Error fetching users. Please try again.');
-        }
+      const response = await fetch('/.netlify/functions/getUsers');
+      const users = await response.json();
+  
+      if (Array.isArray(users)) {
+        users.forEach(user => {
+          // ваш код для обработки пользователя
+        });
+      } else {
+        throw new Error('Expected an array of users');
+      }
     } catch (error) {
-        console.error('Error fetching users:', error);
-        alert('Error fetching users. Please try again.');
+      console.error('Error fetching users:', error);
     }
-}
+  }
+  
