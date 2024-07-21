@@ -31,27 +31,56 @@ document.getElementById('createUserForm').addEventListener('submit', async (even
     const email = document.getElementById('email').value;
     const age = document.getElementById('age').value;
 
-    try {
-        const response = await fetch('/.netlify/functions/createUser', { // Путь к функции Netlify
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email, age }),
-        });
+    const userData = { name, email, age };
 
-        if (response.ok) {
-            document.getElementById('createUserForm').reset();
-            fetchUsers(); // Обновить список пользователей
-        } else {
-            console.error('Error creating user:', response.statusText);
-            alert('Error creating user. Please try again.');
-        }
-    } catch (error) {
-        console.error('Error creating user:', error);
-        alert('Error creating user. Please try again.');
+    const result = await createUser(userData);
+    if (result) {
+        alert('User created successfully');
+        fetchUsers(); // Обновить список пользователей после создания нового
+    } else {
+        alert('Failed to create user');
     }
 });
+
+// Функция для создания пользователя
+async function createUser(userData) {
+    try {
+        const response = await fetch('https://alexqa.netlify.app/api/createUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error creating user:', error);
+    }
+}
+
+// Функция для получения и отображения списка пользователей
+async function fetchUsers() {
+    try {
+        const response = await fetch('https://alexqa.netlify.app/api/getUsers');
+        const users = await response.json();
+
+        if (Array.isArray(users)) {
+            const userList = document.getElementById('userList');
+            userList.innerHTML = ''; // Очистить текущий список
+
+            users.forEach(user => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${user.name} (${user.email}, ${user.age} years old)`;
+                userList.appendChild(listItem);
+            });
+        } else {
+            throw new Error('Expected an array of users');
+        }
+    } catch (error) {
+        console.error('Error fetching users:', error);
+    }
+}
 
 // Функция для получения и отображения документации API
 function showApiDocs() {
@@ -113,22 +142,3 @@ function showApiDocs() {
         </pre>
     `;
 }
-
-// Функция для получения списка пользователей
-async function fetchUsers() {
-    try {
-      const response = await fetch('/.netlify/functions/getUsers');
-      const users = await response.json();
-  
-      if (Array.isArray(users)) {
-        users.forEach(user => {
-          // ваш код для обработки пользователя
-        });
-      } else {
-        throw new Error('Expected an array of users');
-      }
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  }
-  
