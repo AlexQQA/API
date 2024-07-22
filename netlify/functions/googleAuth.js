@@ -1,6 +1,9 @@
+# Откройте файл netlify/functions/googleAuth.js и удалите секреты из кода
+# Пример:
 const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
-const fetch = require('node-fetch');
+// Удалите node-fetch и замените на импорты
+const fetch = import('node-fetch');
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -8,7 +11,6 @@ exports.handler = async (event) => {
     const { code } = JSON.parse(event.body);
 
     try {
-        // Обмен кода на токен
         const res = await fetch('https://oauth2.googleapis.com/token', {
             method: 'POST',
             headers: {
@@ -24,7 +26,6 @@ exports.handler = async (event) => {
         });
 
         const tokenData = await res.json();
-        console.log('Token data:', tokenData); // Отладка
 
         if (tokenData.error) {
             throw new Error(tokenData.error_description);
@@ -47,7 +48,6 @@ exports.handler = async (event) => {
             body: JSON.stringify({ token: jwtToken }),
         };
     } catch (error) {
-        console.error('Error exchanging code for token:', error);
         return {
             statusCode: 400,
             body: JSON.stringify({ error: 'Failed to exchange code for token' }),
