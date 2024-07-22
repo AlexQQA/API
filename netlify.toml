@@ -8,6 +8,18 @@
   status = 200
   force = true
 
+[[redirects]]
+  from = "/auth/google"
+  to = "/.netlify/functions/googleAuth"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/auth/github"
+  to = "/.netlify/functions/githubAuth"
+  status = 302
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -16,4 +28,3 @@
 
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
-

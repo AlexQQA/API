@@ -1,44 +1,68 @@
-document.getElementById('signInBtn').addEventListener('click', () => {
-    window.location.href = 'sign-in.html';
-});
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Document loaded'); // Отладка
 
-document.getElementById('generateKeyBtn').addEventListener('click', () => {
-    alert('Key generation functionality will be implemented here.');
-});
+    document.getElementById('signInBtn').addEventListener('click', () => {
+        window.location.href = 'sign-in.html';
+    });
 
-document.getElementById('documentationBtn').addEventListener('click', () => {
-    document.getElementById('documentationSection').style.display = 'block';
-    document.getElementById('userListSection').style.display = 'none';
-    document.getElementById('createUserSection').style.display = 'none';
-    showApiDocs();
-});
+    document.getElementById('generateKeyBtn').addEventListener('click', () => {
+        alert('Key generation functionality will be implemented here.');
+    });
 
-document.getElementById('createUserBtn').addEventListener('click', () => {
-    document.getElementById('createUserSection').style.display = 'block';
-    document.getElementById('userListSection').style.display = 'none';
-    document.getElementById('documentationSection').style.display = 'none';
-});
+    document.getElementById('documentationBtn').addEventListener('click', () => {
+        document.getElementById('documentationSection').style.display = 'block';
+        document.getElementById('userListSection').style.display = 'none';
+        document.getElementById('createUserSection').style.display = 'none';
+        document.getElementById('tokenSection').style.display = 'none';
+        showApiDocs();
+    });
 
-document.getElementById('showUsersBtn').addEventListener('click', () => {
-    document.getElementById('createUserSection').style.display = 'none';
-    document.getElementById('userListSection').style.display = 'block';
-    document.getElementById('documentationSection').style.display = 'none';
-    fetchUsers();
-});
+    document.getElementById('createUserBtn').addEventListener('click', () => {
+        document.getElementById('createUserSection').style.display = 'block';
+        document.getElementById('userListSection').style.display = 'none';
+        document.getElementById('documentationSection').style.display = 'none';
+        document.getElementById('tokenSection').style.display = 'none';
+    });
 
-document.getElementById('createUserForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const age = document.getElementById('age').value;
-    const userData = { name, email, age };
-    const result = await createUser(userData);
-    alert(result.message || 'User created successfully');
+    document.getElementById('showUsersBtn').addEventListener('click', () => {
+        document.getElementById('createUserSection').style.display = 'none';
+        document.getElementById('userListSection').style.display = 'block';
+        document.getElementById('documentationSection').style.display = 'none';
+        document.getElementById('tokenSection').style.display = 'none';
+        fetchUsers();
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    if (code) {
+        console.log('OAuth code found:', code); // Отладка
+        fetch('/.netlify/functions/authCallback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ code })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from authCallback:', data); // Отладка
+            if (data.token) {
+                document.getElementById('tokenSection').style.display = 'block';
+                document.getElementById('tokenArea').value = data.token;
+                window.history.replaceState({}, document.title, "/");
+            } else {
+                alert('Failed to obtain token');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching token:', error);
+        });
+    }
 });
 
 async function createUser(userData) {
     try {
-        const response = await fetch('/.netlify/functions/createUser', {
+        const response = await fetch('https://alexqa.netlify.app/api/createUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -54,15 +78,9 @@ async function createUser(userData) {
 
 async function fetchUsers() {
     try {
-        const response = await fetch('/.netlify/functions/getUsers');
+        const response = await fetch('https://alexqa.netlify.app/api/getUsers');
         const users = await response.json();
-        const userList = document.getElementById('userList');
-        userList.innerHTML = '';
-        users.forEach(user => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${user.name} (${user.email}) - Age: ${user.age}`;
-            userList.appendChild(listItem);
-        });
+        return users;
     } catch (error) {
         console.error('Error fetching users:', error);
     }

@@ -5,39 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dummy API User Management</title>
     <link rel="stylesheet" href="style.css">
+    <script src="netlify-identity-widget.js"></script>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="navbar">
-                <button id="generateKeyBtn">Generate Key</button>
-                <button id="documentationBtn">Documentation</button>
-                <button id="createUserBtn">Create User</button>
-                <button id="showUsersBtn">Show Users</button>
-                <button id="signInBtn" class="sign-in-btn">Sign in</button>
-            </div>
-        </header>
-        <main>
-            <div id="createUserSection" style="display: none;">
-                <h2>Create User</h2>
-                <form id="createUserForm">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required><br>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required><br>
-                    <label for="age">Age:</label>
-                    <input type="number" id="age" name="age" required><br>
-                    <button type="submit">Create User</button>
-                </form>
-            </div>
-            <div id="userListSection" style="display: none;">
-                <h2>User List</h2>
-                <ul id="userList"></ul>
-            </div>
-            <div id="documentationSection" style="display: none;">
-                <div id="apiDocs"></div>
-            </div>
-        </main>
+        <div class="navbar">
+            <button id="generateKeyBtn">Generate Key</button>
+            <button id="documentationBtn">Documentation</button>
+            <button id="createUserBtn">Create User</button>
+            <button id="showUsersBtn">Show Users</button>
+            <button id="signInBtn">Sign In</button>
+        </div>
+        <div id="createUserSection" style="display: none;">
+            <h2>Create User</h2>
+            <form id="createUserForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required><br>
+                <button type="submit">Create User</button>
+            </form>
+        </div>
+        <div id="userListSection" style="display: none;">
+            <h2>User List</h2>
+            <ul id="userList"></ul>
+        </div>
+        <div id="documentationSection" style="display: none;">
+            <div id="apiDocs"></div>
+        </div>
+        <div id="tokenSection" style="display: none;">
+            <h2>Token for Postman</h2>
+            <textarea id="tokenArea" readonly></textarea>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
