@@ -2,7 +2,20 @@ import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 
 export async function handler(event) {
-    const { code } = JSON.parse(event.body);
+    let code;
+    try {
+        const body = JSON.parse(event.body);
+        code = body.code;
+        if (!code) {
+            throw new Error('Authorization code not provided');
+        }
+    } catch (error) {
+        console.error('Error parsing JSON input or missing code:', error);
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: 'Invalid request data or missing authorization code' }),
+        };
+    }
 
     try {
         const fetch = await import('node-fetch');
@@ -23,6 +36,7 @@ export async function handler(event) {
         const tokenData = await res.json();
 
         if (tokenData.error) {
+            console.error('Error from Google token API:', tokenData.error_description);
             throw new Error(tokenData.error_description);
         }
 
@@ -44,6 +58,7 @@ export async function handler(event) {
             body: JSON.stringify({ token: jwtToken }),
         };
     } catch (error) {
+        console.error('Error during token exchange or verification:', error);
         return {
             statusCode: 400,
             body: JSON.stringify({ error: 'Failed to exchange code for token' }),
