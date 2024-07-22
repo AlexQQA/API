@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchUsers();
     });
 
+    // Обработка OAuth кода
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     if (code) {
@@ -58,6 +59,22 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching token:', error);
         });
     }
+
+    // Обработка формы создания пользователя
+    document.getElementById('createUserForm').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Предотвратить стандартное действие формы
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const age = document.getElementById('age').value;
+
+        const userData = { name, email, age };
+
+        const result = await createUser(userData);
+        console.log('User creation result:', result); // Отладка
+        if (result && result.message) {
+            alert(result.message);
+        }
+    });
 });
 
 async function createUser(userData) {
@@ -70,6 +87,7 @@ async function createUser(userData) {
             body: JSON.stringify(userData)
         });
         const data = await response.json();
+        console.log('Create user response:', data); // Отладка
         return data;
     } catch (error) {
         console.error('Error creating user:', error);
@@ -80,10 +98,28 @@ async function fetchUsers() {
     try {
         const response = await fetch('https://alexqa.netlify.app/api/getUsers');
         const users = await response.json();
+        console.log('Fetch users response:', users); // Отладка
+        displayUsers(users);
         return users;
     } catch (error) {
         console.error('Error fetching users:', error);
     }
+}
+
+function displayUsers(users) {
+    const userList = document.getElementById('userList');
+    userList.innerHTML = ''; // Очистить текущий список пользователей
+
+    if (users.length === 0) {
+        userList.innerHTML = '<li>No users found.</li>';
+        return;
+    }
+
+    users.forEach(user => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Name: ${user.name}, Email: ${user.email}, Age: ${user.age}`;
+        userList.appendChild(listItem);
+    });
 }
 
 function showApiDocs() {
@@ -99,7 +135,10 @@ function showApiDocs() {
             "age": "number"
         }
         Response:
-        201 Created
+        {
+            "message": "User created successfully",
+            "userId": "string"
+        }
         </pre>
 
         <h3>2. Get All Users</h3>
