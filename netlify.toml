@@ -10,9 +10,10 @@
 
 [[redirects]]
   from = "/auth/google"
-  to = "/.netlify/functions/googleAuth"
+  to = "/.netlify/functions/authCallback"
   status = 302
   force = true
+
 
 [[redirects]]
   from = "/auth/github"
