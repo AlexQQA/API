@@ -6,7 +6,7 @@
     <title>Dummy API User Management</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID_HERE">
+    <meta name="google-signin-client_id" content="249425105169-8gfnkub71sjsr9d6jei87294h96o2n7i.apps.googleusercontent.com">
 </head>
 <body>
     <div class="container">
@@ -18,6 +18,7 @@
             <button id="signInBtn">Sign In</button>
             <span id="userInfo" style="display: none;"></span>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <button id="signInWithGitHub">Sign in with GitHub</button>
         </div>
         <div id="createUserSection" style="display: none;">
             <h2>Create User</h2>
@@ -44,5 +45,6 @@
         </div>
     </div>
     <script src="script.js"></script>
+    <script src="sign-in.js"></script>
 </body>
 </html>

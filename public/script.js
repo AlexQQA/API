@@ -36,7 +36,7 @@ function signOut() {
 function initGoogleSignIn() {
     gapi.load('auth2', () => {
         gapi.auth2.init({
-            client_id: 'YOUR_CLIENT_ID_HERE'
+            client_id: '249425105169-8gfnkub71sjsr9d6jei87294h96o2n7i.apps.googleusercontent.com'
         });
     });
 }
