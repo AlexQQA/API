@@ -46,5 +46,28 @@
     </div>
     <script src="script.js"></script>
     <script src="sign-in.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const token = localStorage.getItem('githubToken');
+          if (token) {
+              fetch('https://api.github.com/user', {
+                  headers: {
+                      'Authorization': `token ${token}`
+                  }
+              })
+              .then(response => response.json())
+              .then(userData => {
+                  document.getElementById('userInfo').innerText = `Logged in as: ${userData.login}`;
+                  document.getElementById('userInfo').style.display = 'block';
+                  document.getElementById('signInBtn').innerText = 'Sign Out';
+                  document.getElementById('signInBtn').addEventListener('click', () => {
+                      localStorage.removeItem('githubToken');
+                      window.location.href = 'index.html';
+                  });
+              })
+              .catch(error => console.error('Error fetching user data:', error));
+          }
+      });
+    </script>
 </body>
 </html>
