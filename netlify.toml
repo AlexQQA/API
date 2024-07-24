@@ -2,6 +2,10 @@
   publish = "public"
   functions = "netlify/functions"
 
+[dev]
+  functions = "netlify/functions"
+  publish = "public"
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
