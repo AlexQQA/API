@@ -1,3 +1,50 @@
+// Функция вызывается при успешной авторизации
+function onSignIn(googleUser) {
+    // Получаем токен и информацию о пользователе
+    const profile = googleUser.getBasicProfile();
+    const idToken = googleUser.getAuthResponse().id_token;
+
+    // Показать информацию о пользователе
+    document.getElementById('userInfo').style.display = 'block';
+    document.getElementById('userInfo').innerHTML = `
+        <p>Signed in as: ${profile.getName()}</p>
+        <p>Email: ${profile.getEmail()}</p>
+    `;
+
+    // Изменить текст кнопки Sign In на Sign Out
+    document.getElementById('signInBtn').innerText = 'Sign Out';
+    document.getElementById('signInBtn').addEventListener('click', () => {
+        signOut();
+    });
+
+    // Прячем кнопку Google Sign-In
+    document.querySelector('.g-signin2').style.display = 'none';
+}
+
+// Функция для выхода из системы
+function signOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+        // Очистить информацию о пользователе
+        document.getElementById('userInfo').style.display = 'none';
+        document.getElementById('signInBtn').innerText = 'Sign In';
+        document.querySelector('.g-signin2').style.display = 'block';
+    });
+}
+
+// Инициализация Google API
+function initGoogleSignIn() {
+    gapi.load('auth2', () => {
+        gapi.auth2.init({
+            client_id: 'YOUR_CLIENT_ID_HERE'
+        });
+    });
+}
+
+// Вызов функции инициализации после загрузки страницы
+window.onload = initGoogleSignIn;
+
+// Существующие обработчики
 document.getElementById('createUserBtn').addEventListener('click', () => {
     document.getElementById('createUserSection').style.display = 'block';
     document.getElementById('userListSection').style.display = 'none';
@@ -69,10 +116,11 @@ document.getElementById('showUsersBtn').addEventListener('click', async () => {
             const users = await response.json();
             const userList = document.getElementById('userList');
             userList.innerHTML = '';
+
             users.forEach(user => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${user.name} (${user.email})`;
-                userList.appendChild(listItem);
+                const li = document.createElement('li');
+                li.textContent = `${user.name} (${user.email}), Age: ${user.age}`;
+                userList.appendChild(li);
             });
         } else {
             const error = await response.json();

@@ -1,59 +1,40 @@
+/* Пример стилей */
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #8e2de2, #4a00e0);
-  color: #fff;
+  background-color: #f4f4f4;
 }
 
 .container {
   width: 80%;
   margin: auto;
-  padding: 20px;
 }
 
 .navbar {
-  display: flex;
-  justify-content: space-around;
+  background-color: #333;
+  color: #fff;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.5);
 }
 
-button {
-  background: #4a00e0;
-  border: none;
-  color: white;
-  padding: 10px 20px;
+.navbar button, .g-signin2 {
   margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  color: #fff;
+  background-color: #007bff;
   cursor: pointer;
 }
 
-button:hover {
-  background: #8e2de2;
+.navbar button:hover, .g-signin2:hover {
+  background-color: #0056b3;
 }
 
-form {
-  margin: 20px 0;
+#userInfo {
+  margin-top: 10px;
 }
 
-label {
-  display: block;
-  margin: 5px 0;
-}
-
-input {
-  margin: 5px 0;
-  padding: 5px;
+#tokenArea {
   width: 100%;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.5);
-  margin: 5px 0;
+  height: 100px;
 }

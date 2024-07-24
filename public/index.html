@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dummy API User Management</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/netlify-identity-widget"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID_HERE">
 </head>
 <body>
     <div class="container">
@@ -16,6 +17,7 @@
             <button id="showUsersBtn">Show Users</button>
             <button id="signInBtn">Sign In</button>
             <span id="userInfo" style="display: none;"></span>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
         <div id="createUserSection" style="display: none;">
             <h2>Create User</h2>
