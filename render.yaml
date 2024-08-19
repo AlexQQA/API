@@ -1,0 +1,9 @@
+services:
+  - type: background
+    name: grpc-server
+    image: docker.io/dummyapi/grpc-server:latest
+    env:
+      PORT: 10000
+    ports:
+      - 10000
+
