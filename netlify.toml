@@ -18,12 +18,17 @@
   status = 302
   force = true
 
-
 [[redirects]]
   from = "/auth/github"
   to = "/.netlify/functions/githubAuth"
   status = 302
   force = true
+
+[[redirects]]
+  from = "/api/updateUser/:userId"
+  to = "/.netlify/functions/updateUser"
+  status = 200
+  conditions = { method = "PUT" }
 
 [[headers]]
   for = "/*"
@@ -33,3 +38,12 @@
 
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
+
+
+[[redirects]]
+  from = "/graphql"
+  to = "/.netlify/functions/createUserGQL"
+  status = 200
+
+
+

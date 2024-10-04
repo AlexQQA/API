@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>What is WebSocket?</h2>
+    <p>
+        <strong>WebSocket</strong> is a communication protocol that provides full-duplex communication channels over a single TCP connection. Unlike traditional HTTP communication, which is unidirectional, WebSockets allow both the client and the server to send messages at any time, making it ideal for real-time applications such as chat applications, gaming, live updates, and more.
+    </p>
+
+    <h3>Key Features of WebSocket:</h3>
+    <ul>
+        <li><strong>Full-Duplex Communication:</strong> WebSockets enable two-way communication, where both the client and the server can send data simultaneously over the same connection.</li>
+        <li><strong>Persistent Connection:</strong> Once established, the WebSocket connection remains open, allowing continuous data exchange without the overhead of opening new connections.</li>
+        <li><strong>Low Latency:</strong> WebSockets reduce the latency caused by multiple HTTP requests and responses, providing a more efficient real-time communication solution.</li>
+        <li><strong>Lightweight Protocol:</strong> WebSocket frames are much smaller than typical HTTP requests, as they lack the overhead of headers, making them ideal for scenarios where fast, frequent communication is required.</li>
+    </ul>
+
+    <h3>Common Use Cases:</h3>
+    <ul>
+        <li><strong>Real-Time Chat Applications:</strong> WebSockets are often used in chat apps to enable instant messaging between users.</li>
+        <li><strong>Live Data Feeds:</strong> Stock prices, sports scores, and other live data feeds benefit from the persistent and real-time nature of WebSockets.</li>
+        <li><strong>Online Gaming:</strong> Multiplayer games use WebSockets to synchronize game states between players in real-time.</li>
+        <li><strong>Collaborative Tools:</strong> Tools like document editors, whiteboards, or drawing apps rely on WebSockets for real-time collaboration.</li>
+    </ul>
+
+    <h3>How WebSocket Works:</h3>
+    <p>
+        The WebSocket protocol is initiated by a handshake, similar to an HTTP request, but once established, the connection is upgraded to the WebSocket protocol. After the connection is open, data can be sent as messages in both directions without needing to reestablish the connection.
+    </p>
+
+    <h3>WebSocket Documentation</h3>
+    <p>For more detailed information about WebSockets, you can explore the following resources:</p>
+    <ul>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="_blank">MDN WebSocket API Documentation</a> - A comprehensive guide to using WebSockets in modern browsers.</li>
+        <li><a href="https://tools.ietf.org/html/rfc6455" target="_blank">WebSocket Protocol RFC 6455</a> - The official specification of the WebSocket protocol.</li>
+        <li><a href="https://websockets.org/" target="_blank">WebSockets.org</a> - A website dedicated to WebSocket technology and its use cases.</li>
+    </ul>
+
+    <p>WebSockets offer a powerful solution for real-time, bidirectional communication in web applications. They are a popular choice for building interactive and dynamic web applications that require fast data exchange.</p>
+</body>
+</html>

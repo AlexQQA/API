@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Стили для логотипа */
+        .logo-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .logo {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 2em;
+            font-weight: bold;
+            color: white;
+            background: #800000; /* Бордовый цвет */
+            border-radius: 50px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .button-rest {
+            background-color: #800000; /* Новый бордовый фона для кнопки */
+            color: #fff; /* Цвет текста кнопки */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button-rest:hover {
+            background-color: #800000; /* Темнее бордовый цвет при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo">REST</div> <!-- Стилизация логотипа REST -->
+    </div>
+
+    <h2>What is REST API?</h2>
+    <p>
+        A <strong>REST API (Representational State Transfer Application Programming Interface)</strong> is an architectural style that defines a set of constraints and conventions for building web services. REST APIs allow clients to interact with server resources using standard HTTP methods such as <code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code>. 
+        The API sends and receives data in various formats, commonly JSON or XML, but the most widely used format today is JSON.
+    </p>
+
+    <h3>Key Features of REST:</h3>
+    <ul>
+        <li><strong>Stateless:</strong> Each request from a client contains all the information needed to understand and process the request, making it independent of previous requests.</li>
+        <li><strong>Cacheable:</strong> Responses can be cached to improve performance and efficiency.</li>
+        <li><strong>Client-Server Architecture:</strong> The client and server are independent of each other, allowing for a separation of concerns.</li>
+        <li><strong>Uniform Interface:</strong> REST relies on a consistent, uniform interface for interacting with resources, typically represented as URLs (Uniform Resource Locators).</li>
+        <li><strong>Layered System:</strong> REST APIs can be designed in layers, which helps with scalability and security.</li>
+    </ul>
+
+    <h3>Common HTTP Methods in REST APIs:</h3>
+    <ul>
+        <li><code>GET</code> - Retrieve data from the server.</li>
+        <li><code>POST</code> - Send data to the server to create a new resource.</li>
+        <li><code>PUT</code> - Update an existing resource on the server.</li>
+        <li><code>DELETE</code> - Delete a resource on the server.</li>
+    </ul>
+
+    <h3>REST API Documentation</h3>
+    <p>For more detailed information and best practices, you can refer to the following resources:</p>
+    <ul>
+        <li><a href="https://restfulapi.net/" target="_blank">RESTful API Documentation</a> - A comprehensive guide on REST principles and examples.</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods" target="_blank">MDN Web Docs: HTTP Methods</a> - Explanation of the HTTP methods used in REST APIs.</li>
+        <li><a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm" target="_blank">Roy Fielding's Dissertation on REST</a> - The original document that introduced the concept of REST.</li>
+    </ul>
+
+    <p>REST APIs are widely used in modern web applications due to their simplicity, scalability, and flexibility. Understanding how to work with RESTful APIs is crucial for any web developer.</p>
+</body>
+</html>

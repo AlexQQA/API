@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gRPC API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>What is gRPC?</h2>
+    <p>
+        <strong>gRPC</strong> is a modern, open-source Remote Procedure Call (RPC) framework developed by Google. It enables communication between services in a distributed system by allowing clients to directly call methods on a server as if it were a local object. gRPC supports multiple programming languages and is highly efficient, making it a popular choice for microservices architectures.
+    </p>
+
+    <h3>Key Features of gRPC:</h3>
+    <ul>
+        <li><strong>Efficient Communication:</strong> gRPC uses HTTP/2 for transport, providing features like multiplexing, bidirectional streaming, flow control, and header compression.</li>
+        <li><strong>Protocol Buffers:</strong> gRPC uses Protocol Buffers (Protobuf) for defining service methods and serializing data, which is faster and more compact than JSON or XML.</li>
+        <li><strong>Language-agnostic:</strong> gRPC provides cross-platform support for many programming languages, such as Go, Java, C++, Python, and more.</li>
+        <li><strong>Streaming:</strong> gRPC supports client-side, server-side, and bidirectional streaming, enabling real-time data exchange between clients and servers.</li>
+        <li><strong>Service Definition:</strong> gRPC services are defined using Protobuf files (.proto), making the interface clear and strongly typed.</li>
+    </ul>
+
+    <h3>Core Concepts of gRPC:</h3>
+    <ul>
+        <li><code>Unary RPC:</code> The simplest form of communication where the client sends a single request and receives a single response.</li>
+        <li><code>Server Streaming RPC:</code> The server sends a stream of responses after receiving a client request.</li>
+        <li><code>Client Streaming RPC:</code> The client sends a stream of requests, and the server responds once all the requests are received.</li>
+        <li><code>Bidirectional Streaming RPC:</code> Both client and server send streams of messages in both directions, allowing for continuous data flow.</li>
+    </ul>
+
+    <h3>gRPC Documentation</h3>
+    <p>For more detailed information and resources on gRPC, check the following documentation links:</p>
+    <ul>
+        <li><a href="https://grpc.io/docs/" target="_blank">Official gRPC Documentation</a> - The main source for learning about gRPC features and implementation details.</li>
+        <li><a href="https://developers.google.com/protocol-buffers" target="_blank">Protocol Buffers Documentation</a> - Learn more about Protobuf, the interface definition language and message format used by gRPC.</li>
+        <li><a href="https://grpc.io/blog/" target="_blank">gRPC Blog</a> - Stay updated on the latest news and developments in gRPC.</li>
+    </ul>
+
+    <p>gRPC is ideal for building efficient, real-time, and scalable systems, especially in microservices and cloud-based environments. Its performance benefits and language support make it a versatile choice for many developers.</p>
+</body>
+</html>
